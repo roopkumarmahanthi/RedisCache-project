@@ -68,7 +68,7 @@ public class BookController {
 	@GetMapping("/getBookById/{bookid}")
 	public ResponseEntity<Map<String,Object>> getBook(@PathVariable int bookid){
 		Optional<Book> bookById = bookService.getBookById(bookid);
-		bookService.checkAvailability(bookById);
+
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(Map.of("Book",bookById));
 	}

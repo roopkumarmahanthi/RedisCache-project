@@ -34,8 +34,8 @@ public class Book implements Serializable{
 
 	/** Auto-generated unique identifier using a sequence generator. */
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "boook_seq")
-	@SequenceGenerator(name = "boook_seq", sequenceName = "book_sequence", initialValue = 100, allocationSize = 50)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)//SEQUENCE, generator = "boook_seq")
+	//@SequenceGenerator(name = "boook_seq", sequenceName = "book_sequence", initialValue = 100, allocationSize = 50)
 	private int bookid;
 
 	/** Unique name of the book. */

@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +71,7 @@ public class BookServiceIMPL implements BookService {
 		if(bookDto.getBookid()==0) {
 				byBookname = bookRepository.findByBookname(bookDto.getBookname());
 		}else {
-			byBookname = bookRepository.findBookByBooknameIdNot(null, bookDto.getBookid());
+			byBookname = bookRepository.findById(bookDto.getBookid());
 		}
 		if(byBookname.isPresent()) throw new AlreadyExistsException(HandleException.BookAlreadyExistsException.getMessage());
 		
@@ -99,6 +98,7 @@ public class BookServiceIMPL implements BookService {
 		}
 		System.out.println("cached from db");
 		Optional<Book> byId = bookRepository.findById(bookid);
+		checkAvailability(byId);
 		redisTemplate.opsForValue().set(generateKey(byId.get().getBookid()), byId.get());
 		return byId;
 	}
